@@ -112,7 +112,7 @@ public class CombatFactory {
 
 		//We've got our damage. We can now create a HitDamage
 		//instance.
-		HitDamage hitDamage = new HitDamage(damage, HitMask.RED);
+		HitDamage hitDamage = new HitDamage(damage, HitMask.RED, null);
 
 		/**
 		 * Prayers decreasing damage.
@@ -543,7 +543,7 @@ public class CombatFactory {
 			int returnDmg = (int) Math.ceil(damage * 0.1D);
 			if(returnDmg > 0) {
 
-				attacker.dealDamage(new HitDamage(returnDmg, HitMask.RED));
+				attacker.dealDamage(new HitDamage(returnDmg, HitMask.RED, null));
 
 				player.setRecoilDamage(player.getRecoilDamage() + damage);
 				if(player.getRecoilDamage() >= 80 || Misc.getRandom(200) >= 195) {
@@ -563,7 +563,7 @@ public class CombatFactory {
 			int returnDmg = (int) (damage * 0.75);
 			if(returnDmg > 0) {
 
-				attacker.dealDamage(new HitDamage(returnDmg, HitMask.RED));
+				attacker.dealDamage(new HitDamage(returnDmg, HitMask.RED, null));
 				player.forceChat("Taste Vengeance!");
 				player.setHasVengeance(false);
 
@@ -687,7 +687,7 @@ public class CombatFactory {
 			if (PrayerHandler.isActivated(victim, PrayerHandler.RETRIBUTION) && victim.getHitpoints() < 1) {
 				victim.performGraphic(new Graphic(437));
 				if (p.getPosition().isWithinDistance(victim.getPosition(),CombatConstants.RETRIBUTION_RADIUS)) {
-					p.dealDamage(new HitDamage(Misc.getRandom(CombatConstants.MAXIMUM_RETRIBUTION_DAMAGE), HitMask.RED));
+					p.dealDamage(new HitDamage(Misc.getRandom(CombatConstants.MAXIMUM_RETRIBUTION_DAMAGE), HitMask.RED, null));
 				}
 			}
 

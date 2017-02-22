@@ -121,7 +121,7 @@ public class QueueableHit {
 			if(!accurate) {
 
 				//The hit wasn't accurate. Blocked by defence. Don't do any damage.
-				damage = new HitDamage(0, HitMask.BLUE);
+				damage = new HitDamage(0, HitMask.BLUE, null);
 			} else {
 
 				//The hit was accurate. Getting random damage..

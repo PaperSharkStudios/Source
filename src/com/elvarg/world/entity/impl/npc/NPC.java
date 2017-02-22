@@ -64,6 +64,10 @@ public class NPC extends Character {
 			isDying = true;
 		}
 	}
+	@Override
+	public void onRegister() {
+
+	}
 
 	@Override
 	public int getHitpoints() {

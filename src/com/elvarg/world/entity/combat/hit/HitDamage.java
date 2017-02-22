@@ -1,5 +1,7 @@
 package com.elvarg.world.entity.combat.hit;
 
+import com.elvarg.world.model.Hitmask;
+
 /**
  * A hit done by an entity onto a target.
  * @author Gabriel Hannason
@@ -9,7 +11,7 @@ public class HitDamage {
 	private int damage;
 	private HitMask hitmask;
 
-	public HitDamage(int damage, HitMask hitmask) {
+	public HitDamage(int damage, HitMask green, Hitmask red) {
 		setDamage(damage);
 		setHitmask(hitmask);
 	}

@@ -81,18 +81,17 @@ public final class CharacterList<E extends Character> implements Iterable<E> {
 	 */
 	public boolean add(E e) {
 		Objects.requireNonNull(e);
-
 		if (!e.isRegistered()) {
 			int slot = slotSearch();
 			if (slot < 0)
 				return false;
 			e.setRegistered(true);
 			e.setIndex(slot);
+			e.onRegister();
 			characters[slot] = e;
-			size++;
+			size++;		
 			return true;
 		}
-
 		return false;
 	}
 

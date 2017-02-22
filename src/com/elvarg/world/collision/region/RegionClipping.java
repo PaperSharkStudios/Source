@@ -92,6 +92,7 @@ public final class RegionClipping {
 	}
 
 	public static RegionClipping get(int regionId) {
+		try {
 		for (RegionClipping r : regionArray) {
 			if(r.regionData == null) {
 				continue;
@@ -100,6 +101,7 @@ public final class RegionClipping {
 				return r;
 			}
 		}
+		}catch(NullPointerException e) { } //no printStackTrace
 		return null;
 	}
 

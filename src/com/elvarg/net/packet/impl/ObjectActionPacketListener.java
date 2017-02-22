@@ -1,5 +1,7 @@
 package com.elvarg.net.packet.impl;
 
+
+
 import com.elvarg.cache.impl.definitions.ObjectDefinition;
 import com.elvarg.engine.task.TaskManager;
 import com.elvarg.engine.task.impl.ForceMovementTask;
@@ -18,6 +20,7 @@ import com.elvarg.world.model.MagicSpellbook;
 import com.elvarg.world.model.PlayerRights;
 import com.elvarg.world.model.Position;
 import com.elvarg.world.model.Skill;
+import com.elvarg.world.model.Agility.Agility;
 
 /**
  * This packet listener is called when a player clicked
@@ -53,6 +56,11 @@ public class ObjectActionPacketListener implements PacketListener {
 		player.setWalkToTask(new WalkToTask(player, position, gameObject.getSize(), new FinalizedMovementTask() {
 			@Override
 			public void execute() {
+				player.setPositionToFace(gameObject.getPosition());
+				
+				if (Agility.handleObject(player, gameObject)) {
+					return;
+				}
 				switch(id) {
 				
 				case WILDERNESS_DITCH:
@@ -62,7 +70,7 @@ public class ObjectActionPacketListener implements PacketListener {
 						TaskManager.submit(new ForceMovementTask(player, 3, new ForceMovement(player.getPosition().copy(), crossDitch, 0, 70, crossDitch.getY() == 3 ? 0 : 2, 6132)));
 					}
 					break;
-
+					
 				case LUNAR_ALTAR:
 				case ANCIENT_ALTAR:
 

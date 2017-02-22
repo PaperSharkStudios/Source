@@ -46,6 +46,7 @@ import com.elvarg.world.model.PlayerInteractingOption;
 import com.elvarg.world.model.PlayerRelations;
 import com.elvarg.world.model.PlayerRights;
 import com.elvarg.world.model.PlayerStatus;
+import com.elvarg.world.model.Position;
 import com.elvarg.world.model.SecondsTimer;
 import com.elvarg.world.model.Skill;
 import com.elvarg.world.model.container.impl.Bank;
@@ -74,6 +75,11 @@ public class Player extends Character {
 			isDying = true;
 			TaskManager.submit(new PlayerDeathTask(this));
 		}
+	}
+	@Override
+	public void onRegister() {
+		//Sends details about the player, such as their player index.
+		getPacketSender().sendDetails();
 	}
 
 	@Override
@@ -288,7 +294,7 @@ public class Player extends Character {
 		setRights(PlayerRights.ADMINISTRATOR);
 		
 		//Packets
-		getPacketSender().sendMapRegion().sendDetails();
+		getPacketSender().sendMapRegion();
 		getPacketSender().sendTabs();
 
 		//Skills
@@ -487,11 +493,14 @@ public class Player extends Character {
 	private boolean isDying;
 	private boolean regionChange, allowRegionChangePacket;
 	private boolean experienceLocked;
+	private boolean[] crossedObstacles = new boolean[7];
+	private boolean crossingObstacle;
 	private final Inventory inventory = new Inventory(this);
 	private final Equipment equipment = new Equipment(this);
 	private final PriceChecker priceChecker = new PriceChecker(this);
 	private ForceMovement forceMovement;
 	private int skillAnimation;
+	private Position resetPosition;
 	private boolean drainingPrayer;
 	private double prayerPointDrain;
 	private final Stopwatch clickDelay = new Stopwatch();
@@ -1035,6 +1044,14 @@ public class Player extends Character {
 	public void setSearchSyntax(String searchSyntax) {
 		this.searchSyntax = searchSyntax;
 	}
+	
+	public Position getResetPosition() {
+		return resetPosition;
+	}
+	
+	public void setResetPosition(Position resetPosition) {
+		this.resetPosition = resetPosition;
+	}
 
 
 	public boolean isPreserveUnlocked() {
@@ -1044,6 +1061,32 @@ public class Player extends Character {
 
 	public void setPreserveUnlocked(boolean preserveUnlocked) {
 		this.preserveUnlocked = preserveUnlocked;
+	}
+	
+	public boolean isCrossingObstacle() {
+		return crossingObstacle;
+	}
+
+	public Player setCrossingObstacle(boolean crossingObstacle) {
+		this.crossingObstacle = crossingObstacle;
+		return this;
+	}
+
+	public boolean[] getCrossedObstacles() {
+		return crossedObstacles;
+	}
+
+	public boolean getCrossedObstacle(int i) {
+		return crossedObstacles[i];
+	}
+
+	public Player setCrossedObstacle(int i, boolean completed) {
+		crossedObstacles[i] = completed;
+		return this;
+	}
+
+	public void setCrossedObstacles(boolean[] crossedObstacles) {
+		this.crossedObstacles = crossedObstacles;
 	}
 
 

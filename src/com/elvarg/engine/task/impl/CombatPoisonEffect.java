@@ -73,7 +73,7 @@ public class CombatPoisonEffect extends Task {
         }
 
         // Deal the damage, then try and decrement the damage count.
-        entity.dealDamage(new HitDamage(entity.getAndDecrementPoisonDamage(), HitMask.GREEN));
+        entity.dealDamage(new HitDamage(entity.getAndDecrementPoisonDamage(), HitMask.GREEN, null));
     }
 
     /**

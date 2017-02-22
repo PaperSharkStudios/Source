@@ -52,6 +52,8 @@ public abstract class Character extends Entity {
 		getUpdateFlag().flag(Flag.ENTITY_INTERACTION);
 		return this;
 	}
+	
+	public abstract void onRegister();
 
 	@Override
 	public void performAnimation(Animation animation) {
